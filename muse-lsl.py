@@ -15,7 +15,7 @@ import muse
 
 
 def main(args):
-    logging.basicConfig(level=args.loglevel or logging.INFO)
+    logging.basicConfig(level=args.loglevel or logging.WARNING)
 
     info = pylsl.StreamInfo(
         name='Muse',
@@ -89,7 +89,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "-i",
         "--interface",
-        help="interface to use, 'hci0' for 'gatt' or a com port for bgapi",
+        help="interface to use, 'hci0' for 'gatt' or a com port for 'bgapi'",
         action='store',
         dest="interface",
         default=None,
@@ -99,9 +99,9 @@ if __name__ == "__main__":
 
     muse = main(args)
     muse.connect()
-    print('Muse%s connected.' % args.address)
+    print('Muse%s connected.' % (args.address or ''))  # Append Muse address if provided or nothing. 
     muse.start()
-    print('Muse streaming started.')
+    print('LSL streaming started.')
 
     while True:
         try:

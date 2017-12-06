@@ -46,7 +46,7 @@ class Muse():
         if self.address is None:
             address = self.find_muse_address(self.name)
             if address is None:
-                raise(ValueError("Can't find Muse Device"))
+                raise(ValueError("Can't find Muse device."))
             else:
                 self.address = address
         self.device = self.adapter.connect(self.address)
@@ -57,11 +57,11 @@ class Muse():
 
         # subscribes to Accelerometer
         if self.accelero:
-            raise(NotImplementedError('Accelerometer not implemented'))
+            raise(NotImplementedError('Accelerometer not implemented.'))
 
         # subscribes to Giroscope
         if self.giro:
-            raise(NotImplementedError('Giroscope not implemented'))
+            raise(NotImplementedError('Giroscope not implemented.'))
 
     def find_muse_address(self, name=None):
         """look for ble device with a muse in the name"""
@@ -69,12 +69,12 @@ class Muse():
         for device in list_devices:
             if name:
                 if device['name'] == name:
-                    print('Found device %s : %s' % (device['name'],
+                    print('Found device %s: %s' % (device['name'],
                                                     device['address']))
                     return device['address']
 
             elif 'Muse' in device['name']:
-                    print('Found device %s : %s' % (device['name'],
+                    print('Found device %s: %s' % (device['name'],
                                                     device['address']))
                     return device['address']
 
@@ -147,7 +147,7 @@ class Muse():
     def _handle_eeg(self, handle, data):
         """Calback for receiving a sample.
 
-        sample are received in this oder : 44, 41, 38, 32, 35
+        sample are received in this order : 44, 41, 38, 32, 35
         wait until we get 35 and call the data callback
         """
         timestamp = self.time_func()
