@@ -106,9 +106,14 @@ if __name__ == "__main__":
     while True:
         try:
             time.sleep(1)
-        except:
+        except KeyboardInterrupt:
+            print('Interrupted. Stopping LSL stream.')
+            logging.info('Cleanly shutting down after keyboard interruption.')
             break
-        finally:
-            muse.stop()
-            muse.disconnect()
-            logging.info('Muse disconnected.')
+        except Exception as e:
+            logging.error(e)
+            break
+
+    muse.stop()
+    muse.disconnect()
+    print('Muse disconnected.')
